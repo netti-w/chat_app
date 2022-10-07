@@ -32,7 +32,7 @@ export default class Start extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={require('../assets/chat_start_backgroundimage.png')} style={styles.image}>
           <Text style={styles.title}>App Title</Text>
-          <View style={styles.box1}>
+          <View style={styles.box}>
             <TextInput
               style={[styles.textField, styles.smallText]}
               onChangeText={(name) => this.setState({ name })}
@@ -62,8 +62,6 @@ export default class Start extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
 
   image: {
@@ -82,11 +80,11 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
 
-  box1: {
+  box: {
     flex: 1,
     width: '88%',
     height: '44%',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fff',
     marginBottom: '6%',
     paddingTop: '6%',
     paddingBottom: '6%',
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     width: '88%',
     padding: '2%',
     height: 50,
-    borderColor: 'gray',
+    borderColor: '#757083',
     borderWidth: 2,
     borderRadius: 2
   },
@@ -111,24 +109,24 @@ const styles = StyleSheet.create({
   colorWrapper: {
     width: '88%',
     height: '60%',
-    justifyContent: 'center',
-    // marginLeft: '6%',
+    justifyContent: 'start',
   },
 
   label: {
-    marginBottom: '8%',
+    marginTop: '10%',
+    marginBottom: '5%',
   },
 
   colors: {
     flexDirection: 'row',
-    marginBottom: 1,
   },
   color: {
     borderRadius: '50%',
     width: 40,
     height: 40,
-    marginRight: 30,
+    marginLeft: 20,
   },
+
   color1: {
     backgroundColor: '#090C08',
   },
@@ -141,13 +139,14 @@ const styles = StyleSheet.create({
   color4: {
     backgroundColor: '#B9C6AE',
   },
+
   buttonWrapper: {
     width: '88%',
     flex: 1,
     justifyContent: 'end',
   },
   button: {
-    height: 50,
+    height: 60,
     width: '100%',
     backgroundColor: '#757083',
     alignItems: 'center',

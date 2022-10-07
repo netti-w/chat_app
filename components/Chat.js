@@ -13,11 +13,12 @@ export default class Chat extends React.Component {
     const { color } = this.props.route.params;
 
     return (
-      <ScrollView style={{ backgroundColor: color }}>
-        <View style={styles.container}>
-          <Text style={styles.text}>Hello World!</Text>
-        </View>
-      </ScrollView>
+      // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      //   <Text>Hello Screen2!</Text>
+      // </View>
+      <View style={[{ backgroundColor: color }, styles.container]}>
+        <Text style={styles.text}>Welcome to the chat</Text>
+      </View>
     )
   }
 }
@@ -25,13 +26,11 @@ export default class Chat extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
   },
 
   text: {
-    flex: 1,
-    color: '#000',
+    color: '#fff',
   },
 });
