@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   colorWrapper: {
     width: '88%',
     height: '60%',
-    justifyContent: 'start',
+    justifyContent: 'flex-start',
   },
 
   label: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   color: {
-    borderRadius: '50%',
+    borderRadius: 20,
     width: 40,
     height: 40,
     marginLeft: 20,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     width: '88%',
     flex: 1,
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
   },
   button: {
     height: 60,
