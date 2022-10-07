@@ -17,6 +17,6 @@ location.
 
 
 ## Project Repository
-[meet](https://github.com/netti-w/chat_app)
+[chat_app](https://github.com/netti-w/chat_app)
 
 ## Project link
