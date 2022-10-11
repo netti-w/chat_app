@@ -31,7 +31,7 @@ export default class Start extends React.Component {
     return (
       <View style={styles.container}>
         <ImageBackground source={require('../assets/chat_start_backgroundimage.png')} style={styles.image}>
-          <Text style={styles.title}>App Title</Text>
+          <Text style={styles.title}>Chat App</Text>
           <View style={styles.box}>
             <TextInput
               style={[styles.textField, styles.smallText]}
@@ -48,7 +48,13 @@ export default class Start extends React.Component {
               </View>
             </View>
             <View style={styles.buttonWrapper}>
-              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
+                accessible={true}
+                accessibilityLabel="Chat button"
+                accessibilityHint="Let's you go to the chat screen."
+                accessibilityRole="button">
                 <Text style={styles.buttonText}>Start Chatting</Text>
               </TouchableOpacity>
             </View>
