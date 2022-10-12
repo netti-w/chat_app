@@ -81,6 +81,7 @@ export default class Chat extends React.Component {
     });
   };
 
+  // function adding new messages to 'messages' collection in Firebase
   addMessages() {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
@@ -99,7 +100,8 @@ export default class Chat extends React.Component {
     )
   };
 
-  // function to dispay custom bubble colour
+
+  // function to display custom speech bubble colour
   renderBubble(props) {
     return (
       <Bubble
