@@ -2,32 +2,16 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const fontWeights = [
-  "normal",
-  "bold",
-  "100",
-  "200",
-  "300",
-  "400",
-  "500",
-  "600",
-  "700",
-  "800",
-  "900"
-];
-
 export default class Start extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
       color: '#090C08',
-      // fontWeightIdx: 0
     };
-  }
+  };
 
   render() {
-    // const [fontWeightIdx, setFontWeightIdx] = useState(0);
     return (
       <View style={styles.container}>
         <ImageBackground source={require('../assets/chat_start_backgroundimage.png')} style={styles.image}>
@@ -41,10 +25,38 @@ export default class Start extends React.Component {
             <View style={styles.colorWrapper}>
               <Text style={[styles.smallText, styles.label]}>Choose Background Color:</Text>
               <View style={styles.colors}>
-                <TouchableOpacity style={[styles.color, styles.color1]} onPress={() => this.setState({ color: '#090C08' })} />
-                <TouchableOpacity style={[styles.color, styles.color2]} onPress={() => this.setState({ color: '#474056' })} />
-                <TouchableOpacity style={[styles.color, styles.color3]} onPress={() => this.setState({ color: '#8A95A5' })} />
-                <TouchableOpacity style={[styles.color, styles.color4]} onPress={() => this.setState({ color: '#B9C6AE' })} />
+                <TouchableOpacity
+                  style={[styles.color,
+                  styles.color1]}
+                  onPress={() => this.setState({ color: '#090C08' })}
+                  accessible={true}
+                  accessibilityLabel="Very dark"
+                  accessibilityHint="Sets background-colour to 'Very dark'."
+                  accessibilityRole="button" />
+                <TouchableOpacity
+                  style={[styles.color, styles.color2]}
+                  onPress={() => this.setState({ color: '#474056' })}
+                  accessible={true}
+                  accessibilityLabel="Very dark grayish violet"
+                  accessibilityHint="Sets background-colour to 'Very dark grayish violet'."
+                  accessibilityRole="button"
+                />
+                <TouchableOpacity
+                  style={[styles.color, styles.color3]}
+                  onPress={() => this.setState({ color: '#8A95A5' })}
+                  accessible={true}
+                  accessibilityLabel="Dark grayish blue"
+                  accessibilityHint="Sets background-colour to 'Dark grayish blue'."
+                  accessibilityRole="button"
+                />
+                <TouchableOpacity
+                  style={[styles.color, styles.color4]}
+                  onPress={() => this.setState({ color: '#B9C6AE' })}
+                  accessible={true}
+                  accessibilityLabel="Grayish green"
+                  accessibilityHint="Sets background-colour to 'Grayish green'."
+                  accessibilityRole="button"
+                />
               </View>
             </View>
             <View style={styles.buttonWrapper}>
@@ -62,8 +74,10 @@ export default class Start extends React.Component {
         </ImageBackground>
       </View>
     )
-  }
+  };
 }
+
+// ------------- Styling ----------------
 
 const styles = StyleSheet.create({
   container: {
