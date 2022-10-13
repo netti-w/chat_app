@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, ScrollView, Platform, KeyboardAvoidingView } from 'react-native';
-// View and Platform determine the OS currently in use
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import firebase to store chat data
 const firebase = require('firebase');
@@ -32,10 +32,60 @@ export default class Chat extends React.Component {
     this.referenceChatMessages = firebase.firestore().collection('messages');
   };
 
+
+  // function adding new messages to 'messages' collection in Firebase
+  addMessages() {
+    const message = this.state.messages[0];
+    this.referenceChatMessages.add({
+      _id: message._id,
+      text: message.text,
+      createdAt: message.createdAt,
+      user: message.user,
+    });
+  };
+
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // function to load messages from asyncStorage
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // function in your code to delete the messages during development
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({
+        messages: []
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
   componentDidMount() {
     // Displaying name in the title of the screen dynamically based on user input in the start component
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name });
+
+    // First load messages from asyncStorage
+    this.getMessages();
+
     // Authenticate users anonymously
     this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -55,6 +105,7 @@ export default class Chat extends React.Component {
       // stop listening for changes
       this.unsubscribe = this.referenceChatMessages.orderBy("createdAt", "desc").onSnapshot(this.onCollectionUpdate);
     });
+
   };
 
   componentWillUnmount() {
@@ -81,23 +132,20 @@ export default class Chat extends React.Component {
     });
   };
 
-  // function adding new messages to 'messages' collection in Firebase
-  addMessages() {
-    const message = this.state.messages[0];
-    this.referenceChatMessages.add({
-      _id: message._id,
-      text: message.text,
-      createdAt: message.createdAt,
-      user: message.user,
-    });
-  };
+  // onSend(messages = []) {
+  //   this.setState(previousState => ({
+  //     messages: GiftedChat.append(previousState.messages, messages)
+  //   }), () => { this.addMessages(this.state.messages[0]) }
+  //   )
 
   // function being called when a user sends a message
   onSend(messages = []) {
     this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages)
-    }), () => { this.addMessages(this.state.messages[0]) }
-    )
+      messages: GiftedChat.append(previousState.messages, messages),
+    }), () => {
+      this.addMessages(this.state.messages[0]);
+      this.saveMessages();
+    });
   };
 
 
