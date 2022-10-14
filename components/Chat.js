@@ -18,6 +18,7 @@ export default class Chat extends React.Component {
       uid: 0,
       isConnected: false,
     };
+
     // Connect to Firebase account
     const firebaseConfig = {
       apiKey: "AIzaSyA1kIStYbEnlxAxetvMHgWRvhqroHSsANI",
@@ -28,15 +29,41 @@ export default class Chat extends React.Component {
       appId: "1:905754841965:web:00724ef08506bf26c38064",
       measurementId: "G-55YLJ3W4V6"
     };
+
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     };
+
     // Reference to 'messages' collection in Firebase
     this.referenceChatMessages = firebase.firestore().collection('messages');
   };
 
+  // function to get uid from asyncStorage
+  async getUser() {
+    let user = '';
+    try {
+      user = await AsyncStorage.getItem('uid') || [];
+      this.setState({
+        uid: user
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+    console.log(user)
+  }
 
-  // function adding new messages to 'messages' collection in Firebase
+  // function to save uid in asyncStorage
+  async saveUser() {
+    let uid = this.state.uid;
+
+    try {
+      await AsyncStorage.setItem('uid', uid);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  // function to add new messages to 'messages' collection in Firebase
   addMessages() {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
@@ -47,7 +74,7 @@ export default class Chat extends React.Component {
     });
   };
 
-  // function to load messages from asyncStorage
+  // asynch function to load messages from asyncStorage
   async getMessages() {
     let messages = '';
     try {
@@ -59,9 +86,10 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
     // for testing
-    // console.log(this.state.messages)
+    console.log(this.state.messages)
   };
 
+  // asynch function to save messages to asynchStorage
   async saveMessages() {
     try {
       await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
@@ -70,7 +98,7 @@ export default class Chat extends React.Component {
     }
   };
 
-  // function in your code to delete the messages during development
+  // for testing: function to delete the messages during development
   async deleteMessages() {
     try {
       await AsyncStorage.removeItem('messages');
@@ -87,6 +115,9 @@ export default class Chat extends React.Component {
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name });
 
+    // Get user before loading messages so they load on correct side of screen locally
+    this.getUser();
+
     // First load messages from asyncStorage
     this.getMessages();
 
@@ -97,7 +128,7 @@ export default class Chat extends React.Component {
           isConnected: true,
         });
         // for testing
-        // console.log('online');
+        console.log('online');
 
         // Authenticate users anonymously
         this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -113,20 +144,22 @@ export default class Chat extends React.Component {
               name: name,
             }
           });
+
+          // Save uid to asynchStorage
+          this.saveUser();
+
           // Reference to load messages from Firebase
           this.referenceChatMessages = firebase.firestore().collection('messages');
-          // stop listening for changes
+          // Stop listening for changes
           this.unsubscribe = this.referenceChatMessages.orderBy("createdAt", "desc").onSnapshot(this.onCollectionUpdate);
         });
       } else {
         this.setState({
           isConnected: false,
-        });
-        // for testing
-        // console.log('offline');
+        })
 
-        // Add offline message
-        this.props.navigation.setOptions({ title: `${name} (You're offline)` });
+        // Add offline note to screen title
+        this.props.navigation.setOptions({ title: `${name} (you're offline)` });
       }
     });
 
@@ -156,6 +189,8 @@ export default class Chat extends React.Component {
     this.setState({
       messages,
     });
+    // Sync fetched messages with asyncStorage (local)
+    this.saveMessages();
   };
 
   // function being called when a user sends a message
@@ -164,13 +199,13 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }), () => {
       this.saveMessages();
-      // this.addMessages(this.state.messages[0]);
       this.addMessages();
+      // for testing
+      // this.deleteMessages();
     });
   };
 
-
-  // function to display custom speech bubble colour
+  // function to render custom speech bubble colour
   renderBubble(props) {
     return (
       <Bubble
@@ -184,6 +219,7 @@ export default class Chat extends React.Component {
     )
   };
 
+  // function to render hiding text input field in offline mode
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {
