@@ -19,7 +19,7 @@ Before installing the app, make sure you have a recent version of Node and npm i
 - [Node.js](https://nodejs.org/en/download/)
 - npm
 ```
-$npm install -g npm
+npm install -g npm
 ```
 
 ### Installation
@@ -63,8 +63,8 @@ First ensure [Android Studio](https://developer.android.com/studio) is installed
 #### iOS Simulator
 (Macs only) To test in iOS Simulator, first ensure [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12https://apps.apple.com/us/app/xcode/id497799835?mt=12) is installed, then follow instructions in the terminal, pressing  ```i```  to launch iOS simulator.
 
-#### Database storage:
-Note: The app is connected to its own Firebase database run by the developer, but feel free to make your own database and connect it to your local version of the app to create a private chat!
+#### Data storage:
+Note: This app is connected to its own Firebase database run by the developer, but feel free to make your own database and connect it to your local version of the app to create a private chat.
 
 ## Dependencies (in detail):
 - "@react-native-async-storage/async-storage": "^1.17.10",
