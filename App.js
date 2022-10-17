@@ -14,6 +14,11 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["EventEmitter.removeListener",
+  "Animated.event now requires a second argument for options",
+  "expo-permissions is now deprecated"]);
+
 // Create the navigator
 const Stack = createStackNavigator();
 
