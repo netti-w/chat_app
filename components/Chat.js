@@ -4,6 +4,14 @@ import { StyleSheet, View, Text, Button, ScrollView, Platform, KeyboardAvoidingV
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from '@react-native-community/netinfo';
 
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+
+import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
+
+import CustomActions from './CustomActions';
+
 // import firebase to store chat data
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -17,6 +25,7 @@ export default class Chat extends React.Component {
       messages: [],
       uid: 0,
       isConnected: false,
+      image: null,
     };
 
     // Connect to Firebase account
@@ -49,7 +58,6 @@ export default class Chat extends React.Component {
     } catch (error) {
       console.log(error.message);
     }
-    console.log(user)
   }
 
   // function to save uid in asyncStorage
@@ -68,9 +76,11 @@ export default class Chat extends React.Component {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
       _id: message._id,
-      text: message.text,
+      text: message.text || '',
       createdAt: message.createdAt,
       user: message.user,
+      image: message.image || null,
+      location: message.location || null,
     });
   };
 
@@ -139,10 +149,10 @@ export default class Chat extends React.Component {
           this.setState({
             messages: [],
             uid: user.uid,
-            user: {
-              _id: user.uid,
-              name: name,
-            }
+            // user: {
+            //   _id: user.uid,
+            //   name: name,
+            // }
           });
 
           // Save uid to asynchStorage
@@ -181,9 +191,11 @@ export default class Chat extends React.Component {
       var data = doc.data();
       messages.push({
         _id: data._id,
-        text: data.text,
+        text: data.text || '',
         createdAt: data.createdAt.toDate(),
         user: data.user,
+        image: data.image || null,
+        location: data.location || null,
       });
     });
     this.setState({
@@ -229,6 +241,38 @@ export default class Chat extends React.Component {
         />
       );
     }
+  };
+
+  // renderActions = { this.renderCustomActions }
+
+  // Renders action button to send images and location
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  /**
+   * displays the communication features
+   * @function renderCustomActions
+   */
+  renderCustomActions = (props) => <CustomActions {...props} />;
+
+  //custom map view
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
   }
 
   render() {
@@ -240,6 +284,8 @@ export default class Chat extends React.Component {
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderActions={this.renderCustomActions}
+          renderCustomView={this.renderCustomView}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
