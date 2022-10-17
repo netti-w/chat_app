@@ -26,22 +26,22 @@ $npm install -g npm
 In order for this React Native app to run you'll need to have Expo installed and a phone or emulator/ simulator to run it locally.
  
 1. Install the Expo Command Line Interface
-To start running Expo, you’ll need to install the Expo Command Line Interface (CLI). To do so, open up your terminal and type in the following command:
+- To start running Expo, you’ll need to install the Expo Command Line Interface (CLI). To do so, open up your terminal and type in the following command:
 ```
 npm install expo-cli --global
 ```
 2. Clone the Github repo to your local machine
-Make a copy of this [GitHub repository](https://github.com/netti-w/chat_app.git) and save it on your local machine by either downloading it as a zip file or using the git command in your terminal:
+- Make a copy of this [GitHub repository](https://github.com/netti-w/chat_app.git) and save it on your local machine by either downloading it as a zip file or using the git command in your terminal:
 ```
 git clone https://github.com/netti-w/chat_app.git
 ```
 3. Install local dependencies
-Head to the root directory of your repo in your terminal and install all local dependencies by typing the following command in your terminal:
+- Head to the root directory of your repo in your terminal and install all local dependencies by typing the following command in your terminal:
 ```
 npm install
 ```
 4. Start test environment
-You need an Expo account. Head over to the [Expo signup page](https://expo.dev/signup) and follow the instructions to create an account. After completed signup go to your terminal, navigate to the root directory of the GitHub repo and start Expo with:
+- You need an Expo account. Head over to the [Expo signup page](https://expo.dev/signup) and follow the instructions to create an account. After completed signup go to your terminal, navigate to the root directory of the GitHub repo and start Expo with:
 ```
 npm start
 ```
@@ -63,7 +63,7 @@ First ensure [Android Studio](https://developer.android.com/studio)is installed 
 #### iOS Simulator
 (Macs only) To test in iOS Simulator, first ensure [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12https://apps.apple.com/us/app/xcode/id497799835?mt=12) is installed, then follow instructions in the terminal, pressing ```i``` to launch iOS simulator.
 
-### Database storage:
+#### Database storage:
 Note: The app is connected to its own Firebase database run by the developer, but feel free to make your own database and connect it to your local version of the app to create a private chat!
 
 ## Dependencies (in detail):
