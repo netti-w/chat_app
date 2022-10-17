@@ -54,14 +54,14 @@ expo start
 You can test your app with whatever machine you like. However using Expo is recommended to use it on a phone or emulator/ simulator. 
 
 ### Run and test the app on your phone
-Expo will create project for you, and provide you with scannable QR code. Use your phone to scan QR code, and run it with [Expo App] (https://expo.dev/client).
+Expo will create project for you, and provide you with scannable QR code. Use your phone to scan QR code, and run it with [Expo App](https://expo.dev/client).
 
 ### Run and test the app with an emulator/ simulator:
 #### Android Emulator 
-First ensure [Android Studio](https://developer.android.com/studio)is installed and configured, then follow instructions in the terminal, pressing ```a``` to launch Android emulator.
+First ensure [Android Studio](https://developer.android.com/studio) is installed and configured, then follow instructions in the terminal, pressing  ```a```  to launch Android emulator.
 
 #### iOS Simulator
-(Macs only) To test in iOS Simulator, first ensure [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12https://apps.apple.com/us/app/xcode/id497799835?mt=12) is installed, then follow instructions in the terminal, pressing ```i``` to launch iOS simulator.
+(Macs only) To test in iOS Simulator, first ensure [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12https://apps.apple.com/us/app/xcode/id497799835?mt=12) is installed, then follow instructions in the terminal, pressing  ```i```  to launch iOS simulator.
 
 #### Database storage:
 Note: The app is connected to its own Firebase database run by the developer, but feel free to make your own database and connect it to your local version of the app to create a private chat!
