@@ -90,7 +90,7 @@ Note: This app is connected to its own Firebase database run by the developer, b
 
 ## Project screenshots
 Start screen
-![](assets/start_screen.jpg | width=200)
+![](assets/start_screen.jpg)
 
 
 ## Project Repository
